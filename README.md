@@ -29,7 +29,7 @@ host - хост сервера (по умолчанию 127.0.0.1 ) <br>
 port - порт сервера (по умолчанию  5000 ) <br>
 #### Описание запросов
 Upload:<br>
-POST http://127.0.0.1:5000/storage<br> form-data {file: _file.txt_}
+POST http://127.0.0.1:5000/storage<br> form-data {file: _file.txt_} <br>
 Download<br>
 GET http://127.0.0.1:5000/storage?hash=1234 <br>
 Delete<br>
