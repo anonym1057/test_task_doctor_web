@@ -10,7 +10,6 @@ from src.file_manager import FileManager
 
 app = Flask(__name__)
 
-#logging.basicConfig(filename= 'log', level=logging.INFO)
 
 @app.route("/storage", methods=['POST', 'GET', 'DELETE'])
 def storage():
@@ -43,7 +42,6 @@ def storage():
             response_error_bad_request.response = [json.dumps({'error': 'key file has not value with file'})]
             return response_error_bad_request
         hash_file = file_manager.upload(file)
-        logging.info("LAL")
         if hash_file:
             response_succses_created.response = [json.dumps({'hash': hash_file})]
             return response_succses_created
@@ -123,5 +121,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     app.config['FILE_MANAGER'] = FileManager(args.path_storage)
 
+    logging.basicConfig(filename='storage.log', level=logging.DEBUG)
+
     with daemon.DaemonContext():
-        app.run(host=args.host, port=args.port)
+        app.run(host=args.host, port=args.port,debug=True)
