@@ -1,16 +1,18 @@
 import os
 import hashlib
 
+
 class FileManager():
     """
-    The class interacts with the physical storage.
+    Class interacts with the physical storage.
     """
+
     def __init__(self, path_store):
         if not os.path.exists(path_store):
             os.makedirs(path_store)
         elif os.path.isfile(path_store):
             pass
-            #print(f"Error, path {path_store} is file. Past must directory")
+            # print(f"Error, path {path_store} is file. Past must directory")
 
         self.work_directory = path_store
         self.letter = 2
@@ -22,14 +24,13 @@ class FileManager():
         :return: file
         """
         name_directory = hash_file[0:self.letter]
-        #если это папка
+        # если это папка
         if os.path.isdir(os.path.join(self.work_directory, name_directory)):
-            #если это файл
+            # если это файл
             if os.path.isfile(os.path.join(self.work_directory, name_directory, hash_file)):
                 return os.path.join(self.work_directory, name_directory), hash_file
 
-
-        return None,None
+        return None, None
 
     def delete(self, hash_file: str):
         """
@@ -56,10 +57,8 @@ class FileManager():
 
                 return True
 
-        #print(f"Error, file with hash {hash_file} don't exists")
+        # print(f"Error, file with hash {hash_file} don't exists")
         return False
-
-
 
     def upload(self, file):
         """
@@ -80,11 +79,10 @@ class FileManager():
                 return None
 
         else:
-            #создаем папку
+            # создаем папку
             os.makedirs(os.path.join(self.work_directory, name_directory))
 
-        #сохраняем в файл
+        # сохраняем в файл
         file.stream.seek(0)
         file.save(os.path.join(self.work_directory, name_directory, hash_file))
         return hash_file
-
